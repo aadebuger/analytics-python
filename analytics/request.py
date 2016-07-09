@@ -2,6 +2,7 @@ from datetime import datetime
 from dateutil.tz import tzutc
 import logging
 import json
+import os
 
 from requests.auth import HTTPBasicAuth
 from requests import sessions
@@ -14,7 +15,8 @@ def post(write_key, **kwargs):
     log = logging.getLogger('segment')
     body = kwargs
     body["sentAt"] = datetime.utcnow().replace(tzinfo=tzutc()).isoformat()
-    url = 'https://api.segment.io/v1/batch'
+    url = os.getenv("analytisc-server", 'https://api.segment.io/v1/batch')
+    
     auth = HTTPBasicAuth(write_key, '')
     data = json.dumps(body, cls=DatetimeSerializer)
     headers = { 'content-type': 'application/json' }
