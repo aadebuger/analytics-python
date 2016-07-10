@@ -50,6 +50,7 @@ class Client(object):
 
     def identify(self, user_id=None, traits=None, context=None, timestamp=None,
                  anonymous_id=None, integrations=None):
+        print("identify")
         traits = traits or {}
         context = context or {}
         integrations = integrations or {}
